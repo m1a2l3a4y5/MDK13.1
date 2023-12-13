@@ -1,24 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using libmas;
 
 namespace MDK13._1
 {
-   
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -45,8 +33,8 @@ namespace MDK13._1
             {
                 this.Close();
             }
-            else 
-            { 
+            else
+            {
                 dataGrid.Focus();
             }
 
@@ -98,7 +86,7 @@ namespace MDK13._1
             {
                 int columnCount = Libmas.Searches(matrix);
                 if (columnCount != -1)
-                    rez.Text = $"Колонка {columnCount }";
+                    rez.Text = $"Колонка {columnCount}";
                 else
                     rez.Text = "0";
             }
@@ -108,10 +96,6 @@ namespace MDK13._1
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Window1 pas = new Window1();
-            pas.Owner = this;
-            pas.ShowDialog();
-
             timer = new();
             timer.Tick += Timer_Tick;
             timer.Interval = new(0, 0, 0, 1, 0);
@@ -121,26 +105,24 @@ namespace MDK13._1
         private void Timer_Tick(object sender, EventArgs e)
         {
             if (matrix != null)
-            {
                 size.Text = $"{matrix.GetLength(0)} x {matrix.GetLength(1)}";
-            }
         }
 
         private void dataGrid_PreparingCellForEdit(object sender, DataGridPreparingCellForEditEventArgs e)
         {
             int index0 = e.Column.DisplayIndex;
             int index1 = e.Row.GetIndex();
-            number.Text=($"{index1+1} x {index0+1}");
+            number.Text = ($"{index1 + 1} x {index0 + 1}");
         }
 
         private void Настройки_Click(object sender, RoutedEventArgs e)
         {
-            Options opt= new Options();
+            Options opt = new Options();
             opt.ShowDialog();
 
             columns.Text = Pass.CulumnCount.ToString();
             rows.Text = Pass.RuwCount.ToString();
-           
+
             Pass.CulumnCount = Convert.ToInt32(columns.Text);
             Pass.RuwCount = Convert.ToInt32(rows.Text);
         }
